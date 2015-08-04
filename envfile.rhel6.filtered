@@ -1,0 +1,136 @@
+#!/bin/bash
+
+RHN_USER=who@example.com
+RHN_PASSWORD=mypassword
+RHN_ACTIVATION_KEY=yyyyyyyyyyyyyyyyyyyyyyy
+RHN_ORG=zzzzzzz
+RHN_SUBSCRIPTION_POOL=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+RHN_NAME=docker-image-reposyncer
+
+RPM=1
+SRPM=1
+DEBUGINFO=1
+
+REPOS="
+a-mq-clients-1-for-rhel-6-server-rpms \
+cf-me-5.2-for-rhel-6-rpms \
+cf-me-5.3-for-rhel-6-rpms \
+cf-me-5.4-for-rhel-6-rpms \
+jb-eap-5-for-rhel-6-server-rpms \
+jb-eap-6-for-rhel-6-server-rpms \
+jb-eap-6.3-for-rhel-6-server-rpms \
+jb-eap-6.4-for-rhel-6-server-rpms \
+jb-ewp-5-for-rhel-6-server-rpms \
+jb-ews-1-for-rhel-6-server-rpms \
+jb-ews-2-for-rhel-6-server-rpms \
+jws-3-for-rhel-6-server-rpms \
+rh-gluster-3-nfs-for-rhel-6-server-rpms \
+rh-gluster-3-samba-for-rhel-6-server-rpms \
+rhel-6-server-cf-ce-1-rpms \
+rhel-6-server-cf-se-1-rpms \
+rhel-6-server-cf-tools-1-rpms \
+rhel-6-server-extras-debuginfo \
+rhel-6-server-extras-rpms \
+rhel-6-server-hts-rpms \
+rhel-6-server-mrg-grid-execute-rpms \
+rhel-6-server-mrg-grid-rpms \
+rhel-6-server-mrg-management-rpms \
+rhel-6-server-mrg-messaging-2-rpms \
+rhel-6-server-mrg-messaging-3-rpms \
+rhel-6-server-openstack-4.0-rpms \
+rhel-6-server-openstack-5.0-rpms \
+rhel-6-server-openstack-foreman-rpms \
+rhel-6-server-optional-rpms \
+rhel-6-server-ose-2.0-infra-rpms \
+rhel-6-server-ose-2.0-jbosseap-rpms \
+rhel-6-server-ose-2.0-node-rpms \
+rhel-6-server-ose-2.0-rhc-rpms \
+rhel-6-server-ose-2.1-infra-rpms \
+rhel-6-server-ose-2.1-jbossamq-rpms \
+rhel-6-server-ose-2.1-jbosseap-rpms \
+rhel-6-server-ose-2.1-jbossfuse-rpms \
+rhel-6-server-ose-2.1-node-rpms \
+rhel-6-server-ose-2.1-rhc-rpms \
+rhel-6-server-ose-2.2-infra-rpms \
+rhel-6-server-ose-2.2-jbossamq-rpms \
+rhel-6-server-ose-2.2-jbosseap-rpms \
+rhel-6-server-ose-2.2-jbossfuse-rpms \
+rhel-6-server-ose-2.2-node-rpms \
+rhel-6-server-ose-2.2-rhc-rpms \
+rhel-6-server-realtime-rpms \
+rhel-6-server-rh-common-rpms \
+rhel-6-server-rhceph-1.2-calamari-rpms \
+rhel-6-server-rhceph-1.2-installer-rpms \
+rhel-6-server-rhceph-1.2-mon-rpms \
+rhel-6-server-rhceph-1.2-osd-rpms \
+rhel-6-server-rhev-agent-rpms \
+rhel-6-server-rhev-mgmt-agent-rpms \
+rhel-6-server-rhevh-rpms \
+rhel-6-server-rhevm-3-rpms \
+rhel-6-server-rhevm-3.1-rpms \
+rhel-6-server-rhevm-3.2-rpms \
+rhel-6-server-rhevm-3.3-rpms \
+rhel-6-server-rhevm-3.4-rpms \
+rhel-6-server-rhevm-3.5-rpms \
+rhel-6-server-rhevm-3.6-rpms \
+rhel-6-server-rhn-tools-rpms \
+rhel-6-server-rhs-client-1-rpms \
+rhel-6-server-rpms \
+rhel-6-server-sam-rpms \
+rhel-6-server-supplementary-debuginfo \
+rhel-6-server-supplementary-rpms \
+rhel-6-server-v2vwin-1-rpms \
+rhel-6.2-scalefs-server-for-rhs-2.0-rpms \
+rhel-6.2-server-for-rhs-2.0-rpms \
+rhel-6.4-scalefs-server-for-rhs-2.1-rpms \
+rhel-6.4-server-for-rhs-2.1-rpms \
+rhel-atomic-host-rpms \
+rhel-eucjp-for-rhel-6-server-rpms \
+rhel-ha-for-rhel-6-server-rpms \
+rhel-hpn-for-rhel-6-server-rpms \
+rhel-lb-for-rhel-6-server-rpms \
+rhel-rs-for-rhel-6-server-rpms \
+rhel-sap-for-rhel-6-server-rpms \
+rhel-sap-hana-for-rhel-6-server-rpms \
+rhel-scalefs-for-rhel-6-server-rpms \
+rhel-server-6-rhds-9-rpms \
+rhel-server-dts-6-rhb-rpms \
+rhel-server-dts-6-rpms \
+rhel-server-dts2-6-rpms \
+rhel-server-ose-1.2-infra-6-rpms \
+rhel-server-ose-1.2-jbosseap-6-rpms \
+rhel-server-ose-1.2-node-6-rpms \
+rhel-server-ose-1.2-rhc-6-rpms \
+rhel-server-ose-infra-6-rpms \
+rhel-server-ose-jbosseap-6-rpms \
+rhel-server-ose-node-6-rpms \
+rhel-server-ose-rhc-6-rpms \
+rhel-server-ost-6-3-rpms \
+rhel-server-ost-6-folsom-rpms \
+rhel-server-ost-6-preview-rpms \
+rhel-server-rhscl-6-rpms \
+rhel-sfs-for-rhel-6-server-aus-rpms \
+rhel-sjis-for-rhel-6-server-rpms \
+rhs-2.0-for-rhel-6-server-rpms \
+rhs-2.1-for-rhel-6-server-rpms \
+rhs-3-for-rhel-6-server-rpms \
+rhs-nagios-3-for-rhel-6-server-rpms \
+rhsc-2.0-for-rhel-6-server-rpms \
+rhsc-2.1-for-rhel-6-server-rpms \
+rhsc-3-for-rhel-6-server-rpms \
+"
+
+EXCLUDE_REPOS="
+a-mq-clients-1-for-rhel-6-server-rpms \
+cf-me-5.2-for-rhel-6-rpms \
+cf-me-5.3-for-rhel-6-rpms \
+cf-me-5.4-for-rhel-6-rpms \
+jb-eap-5-for-rhel-6-server-rpms \
+jb-eap-6-for-rhel-6-server-rpms \
+jb-eap-6.3-for-rhel-6-server-rpms \
+jb-eap-6.4-for-rhel-6-server-rpms \
+jb-ewp-5-for-rhel-6-server-rpms \
+jb-ews-1-for-rhel-6-server-rpms \
+jb-ews-2-for-rhel-6-server-rpms \
+jws-3-for-rhel-6-server-rpms \
+"

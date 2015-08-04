@@ -1,0 +1,62 @@
+#!/bin/bash
+
+RHN_USER=who@example.com
+RHN_PASSWORD=mypassword
+RHN_ACTIVATION_KEY=yyyyyyyyyyyyyyyyyyyyyyy
+RHN_ORG=zzzzzzz
+RHN_SUBSCRIPTION_POOL=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+RHN_NAME=docker-image-reposyncer
+
+RPM=1
+SRPM=1
+DEBUGINFO=1
+
+REPOS="
+a-mq-clients-1-for-rhel-7-server-rpms \
+jb-eap-6-for-rhel-7-server-rpms \
+jb-eap-6.3-for-rhel-7-server-rpms \
+jb-eap-6.4-for-rhel-7-server-rpms \
+jb-ews-2-for-rhel-7-server-rpms \
+jws-3-for-rhel-7-server-rpms \
+rh-gluster-3-client-for-rhel-7-server-rpms \
+rhel-7-server-extras-rpms \
+rhel-7-server-mrg-messaging-3-rpms \
+rhel-7-server-openstack-6.0-rpms \
+rhel-7-server-openstack-6.0-installer-rpms \
+rhel-7-server-optional-rpms \
+rhel-7-server-ose-3.0-rpms \
+rhel-7-server-rh-common-rpms \
+rhel-7-server-rhceph-1.2-calamari-rpms \
+rhel-7-server-rhceph-1.2-installer-rpms \
+rhel-7-server-rhceph-1.2-mon-rpms \
+rhel-7-server-rhceph-1.2-osd-rpms \
+rhel-7-server-rhceph-1.3-calamari-rpms \
+rhel-7-server-rhceph-1.3-installer-rpms \
+rhel-7-server-rhceph-1.3-mon-rpms \
+rhel-7-server-rhceph-1.3-osd-rpms \
+rhel-7-server-rhceph-1.3-tools-rpms \
+rhel-7-server-rhds-10-rpms \
+rhel-7-server-rhev-mgmt-agent-rpms \
+rhel-7-server-rhevh-rpms \
+rhel-7-server-rhevm-3.6-rpms \
+rhel-7-server-rhn-tools-rpms \
+rhel-7-server-rt-rpms \
+rhel-7-server-rpms \
+rhel-7-server-supplementary-rpms \
+rhel-7-server-v2vwin-1-rpms \
+rhel-atomic-host-rpms \
+rhel-ha-for-rhel-7-server-rpms \
+rhel-rs-for-rhel-7-server-rpms \
+rhel-sap-for-rhel-7-server-rpms \
+rhel-server-rhscl-7-rpms \
+rhel-x86_64-server-7-mrg-messaging-2-rpms \
+"
+
+EXCLUDE_REPOS="
+a-mq-clients-1-for-rhel-7-server-rpms \
+jb-eap-6-for-rhel-7-server-rpms \
+jb-eap-6.3-for-rhel-7-server-rpms \
+jb-eap-6.4-for-rhel-7-server-rpms \
+jb-ews-2-for-rhel-7-server-rpms \
+jws-3-for-rhel-7-server-rpms \
+"

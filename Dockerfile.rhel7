@@ -1,0 +1,6 @@
+FROM registry.access.redhat.com/rhel7
+MAINTAINER Manabu Ori <ori@redhat.com>
+ADD reposync.sh /root/reposync.sh
+CMD ["/root/reposync.sh"]
+
+# vim:et:
