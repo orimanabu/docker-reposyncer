@@ -5,7 +5,7 @@ RHN_PASSWORD=mypassword
 RHN_ACTIVATION_KEY=yyyyyyyyyyyyyyyyyyyyyyy
 RHN_ORG=zzzzzzz
 RHN_SUBSCRIPTION_POOL=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-RHN_NAME=docker-image-reposyncer
+RHN_NAME=docker-image-reposyncer-rhel6
 
 RPM=1
 SRPM=1
