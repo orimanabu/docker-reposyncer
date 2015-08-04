@@ -2,8 +2,8 @@
 
 RHN_USER=who@example.com
 RHN_PASSWORD=mypassword
-RHN_ACTIVATION_KEY=yyyyyyyyyyyyyyyyyyyyyyy
-RHN_ORG=zzzzzzz
+#RHN_ACTIVATION_KEY=yyyyyyyyyyyyyyyyyyyyyyy
+#RHN_ORG=zzzzzzz
 RHN_SUBSCRIPTION_POOL=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 RHN_NAME=docker-image-reposyncer-rhel7
 
