@@ -1,3 +1,9 @@
+[bootstrap]
+name = bootstrap repository
+baseurl = http://host.example.com/path/bootstrap
+enabled = 1
+gpgcheck = 0
+
 [rh-gluster-3-client-for-rhel-7-server-debug-rpms]
 name = Red Hat Storage Native Client for RHEL 7 (Debug RPMs)
 baseurl = http://host.example.com/path/rh-gluster-3-client-for-rhel-7-server-debug-rpms
@@ -403,7 +409,7 @@ gpgkey = file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release
 [rhel-7-server-rpms]
 name = Red Hat Enterprise Linux 7 Server (RPMs)
 baseurl = http://host.example.com/path/rhel-7-server-rpms
-enabled = 1
+enabled = 0
 gpgkey = file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release
 
 [rhel-7-server-rt-debug-rpms]
