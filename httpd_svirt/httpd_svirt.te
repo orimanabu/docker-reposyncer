@@ -5,9 +5,9 @@ require {
 	type httpd_t;
 	type svirt_sandbox_file_t;
 	class file {getattr read open};
-	class dir {read};
+	class dir {getattr read open};
 }
 
 #============= httpd_t ==============
 allow httpd_t svirt_sandbox_file_t:file {getattr read open};
-allow httpd_t svirt_sandbox_file_t:dir read;
+allow httpd_t svirt_sandbox_file_t:dir {getattr read open};
