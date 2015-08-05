@@ -23,6 +23,7 @@ build)
 	;;
 deploy)
 	cp /var/lib/mock/${mockconf}/result/${package}-${version}.{noarch,src}.rpm ${repotop}/bootstrap/Packages/
+	createrepo -s sha256 --checkts --update ${repotop}/bootstrap/
 	;;
 *)
 	echo "${op}: unknown op."
