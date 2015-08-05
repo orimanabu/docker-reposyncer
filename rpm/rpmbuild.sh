@@ -4,6 +4,7 @@ package=reposyncer-gps-nrt
 version=1-1
 rpmbuild_dir=${HOME}/rpmbuild
 mockconf=rhel-7-x86_64
+repotop=/repowork/reposyncer-rhel7/repos
 
 if [ x"$#" != x"1" ]; then
 	echo "$0 op"
@@ -21,7 +22,7 @@ build)
 	#mock -r rhel-7-x86_64 --clean
 	;;
 deploy)
-	cp /var/lib/mock/${mockconf}/result/${package}-${version}.{noarch,src}.rpm /repowork/reposyncer-rhel7/repos/bootstrap/Packages/
+	cp /var/lib/mock/${mockconf}/result/${package}-${version}.{noarch,src}.rpm ${repotop}/bootstrap/Packages/
 	;;
 *)
 	echo "${op}: unknown op."
