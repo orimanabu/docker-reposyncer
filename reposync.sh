@@ -2,23 +2,28 @@
 
 #test=echo
 #source ${ENVFILE}
+repotop=/repos
+metatop=/metadata
 
 REPOS=$(echo ${REPOS} | sed -e 's/,/ /g')
 EXCLUDE_REPOS=$(echo ${EXCLUDE_REPOS} | sed -e 's/,/ /g')
+echo "* MODE: ${MODE}"
 
-echo "=> subscription-manager register"
 smopts=""
 if [ x"$RHN_NAME" != x"" ]; then
 	smopts="${smopts} --name ${RHN_NAME}"
 fi
 if [ x"$RHN_ACTIVATION_KEY" != x"" -a x"$RHN_ORG" != x"" ]; then
 	smopts="${smopts} --org ${RHN_ORG} --activationkey ${RHN_ACTIVATION_KEY}"
+	smmsg="with activation key"
 elif [ x"$RHN_USER" != x"" -a x"$RHN_PASSWORD" != x"" ]; then
 	smopts="${smopts} --username ${RHN_USER} --password ${RHN_PASSWORD}"
+	smmsg="with user auth"
 else
 	echo "No subscription info, failed."
 	exit 1
 fi
+echo "=> subscription-manager register ${smmsg}"
 ${test} subscription-manager register ${smopts}
 if [ x"$?" != x"0" ]; then
 	echo "subscription-manager register failed."
@@ -31,6 +36,20 @@ if [ x"$?" != x"0" ]; then
 	echo "subscription-manager attach failed."
 	exit 1
 fi
+
+case ${MODE} in
+prepare)
+	echo "=> entering ${MODE} mode: get redhat.repo"
+	echo "=> copy redhat.repo"
+	cp /etc/yum.repos.d/redhat.repo ${repotop}/redhat.repo
+	echo "=> subscription-manager unregister"
+	${test} subscription-manager unregister
+	exit
+	;;
+run|reposync)
+	echo "=> entering ${MODE} mode: reposync"
+	;;
+esac
 
 echo "=> subscription-manager repos"
 opts=""
@@ -62,8 +81,6 @@ if [ x"$DEBUG" = x"1" -o x"$DEBUGINFO" = x"1" ]; then
 	suffixes="${suffixes} debug-rpms"
 fi
 
-repotop=/repos
-metatop=/metadata
 for _repo in ${REPOS}; do
 skip=0
 for e_repo in ${EXCLUDE_REPOS}; do
