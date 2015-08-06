@@ -107,7 +107,8 @@ for suffix in ${suffixes}; do
 		${test} modifyrepo ${repodir}/productid ${repodir}/repodata/
 	fi
 
-	if [ -f ${repodir}/*updateinfo.xml.gz ]; then
+	ls ${repodir}/*updateinfo.xml.gz > /dev/null 2>&1
+	if [ x"$?" = x"0" ]; then
 		echo "==> modifyrepo: updateinfo"
 		updateinfo_with_checksum=$(ls -1t ${repodir}/*updateinfo.xml.gz | head -n 1)
 		#echo "===> src updateinfo: ${updateinfo_with_checksum}"
