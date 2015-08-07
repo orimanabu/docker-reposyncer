@@ -112,16 +112,20 @@ for suffix in ${suffixes}; do
 	done
 
 	cr_opts=""
+	cr_msg=""
 	if [ -f ${repodir}/comps.xml ]; then
 		cr_opts="${cr_opts} -g ${repodir}/comps.xml"
+		cr_msg="with comps.xml"
 	fi
-	echo "==> createrepo: ${repodir}"
+	echo "==> createrepo: ${repodir} ${cr_msg}"
 	${test} createrepo -s sha256 --checkts --update ${cr_opts} ${repodir}
 
 	## modifyrepo
-	if [ -f ${repodir}/productid ]; then
+	if [ -f ${repodir}/productid.gz ]; then
 		echo "==> modifyrepo: productid"
+		${test} gzip -dc ${repodir}/productid.gz > ${repodir}/productid
 		${test} modifyrepo ${repodir}/productid ${repodir}/repodata/
+		rm -f ${repodir}/productid
 	fi
 
 	ls ${repodir}/*updateinfo.xml.gz > /dev/null 2>&1
@@ -133,6 +137,8 @@ for suffix in ${suffixes}; do
 		${test} modifyrepo ${repodir}/updateinfo.xml ${repodir}/repodata/
 		#updateinfo_with_checksum2=$(ls -1t ${repodir}/repodata/*updateinfo.xml.gz | head -n 1)
 		#echo "===> dst updateinfo: ${updateinfo_with_checksum2}"
+		rm -f ${repodir}/updateinfo.xml
+		rm -f ${updateinfo_with_checksum}
 	fi
 	done
 done
