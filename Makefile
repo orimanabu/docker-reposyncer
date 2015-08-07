@@ -6,6 +6,13 @@ CONTAINER_NAME=reposyncer-${DISTRIBUTION}
 TOPDIR=/repowork
 ORIGINAL_REPO=${TOPDIR}/${CONTAINER_NAME}/repos/redhat.repo
 
+all:
+	@echo "make targets:"
+	@echo "  build   : buiod docker image"
+	@echo "  prepare : run a image to get original repo file"
+	@echo "  envfile : create envfile from original repo file"
+	@echo "  run     : run reposync docker image"
+
 build:
 	@echo "=> sudo ./build.sh ${DOCKERFILE} ${IMAGE}"
 	@sudo ./build.sh ${DOCKERFILE} ${IMAGE}
