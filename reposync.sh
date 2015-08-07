@@ -62,6 +62,13 @@ if [ x"$?" != x"0" ]; then
 	exit 1
 fi
 
+echo "=> yum-config-manager setopt"
+opts=""
+for repo in ${REPOS}; do
+	opts="${opts} --setopt=${repo}.skip_if_unavailable=true"
+done
+${test} yum-config-manager --save ${opts}
+
 echo "=> yum install"
 #${test} yum install -y iproute openssh-server openssh-clients openssh rsync yum-utils deltarpm createrepo
 ${test} yum install -y yum-utils deltarpm createrepo
