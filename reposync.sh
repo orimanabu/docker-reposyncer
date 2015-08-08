@@ -25,6 +25,7 @@ else
 fi
 echo "=> subscription-manager register ${smmsg}"
 ${test} subscription-manager register ${smopts}
+echo $?
 if [ x"$?" != x"0" ]; then
 	echo "subscription-manager register failed."
 	exit 1
@@ -32,6 +33,7 @@ fi
 
 echo "=> subscription-manager attach"
 ${test} subscription-manager attach --pool $RHN_SUBSCRIPTION_POOL
+echo $?
 if [ x"$?" != x"0" ]; then
 	echo "subscription-manager attach failed."
 	exit 1
