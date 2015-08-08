@@ -23,7 +23,7 @@ prepare:
 
 envfile:
 	test -f ${ENVFILE} && mv ${ENVFILE} ${ENVFILE}.$(shell date '+%Y%m%d-%H%M%S')
-	./setup_envfile.sh --distribution ${DISTRIBUTION} --topdir ${TOPDIR} --repo ${ORIGINAL_REPO} -o ${ENVFILE}
+	./setup_envfile.sh --distribution ${DISTRIBUTION} --topdir ${TOPDIR} --repo ${ORIGINAL_REPO} -i ${ENVFILE} -o ${ENVFILE}
 	chmod 600 ${ENVFILE}
 
 run:
