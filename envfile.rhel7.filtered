@@ -1,15 +1,20 @@
-#!/bin/bash
-
 RHN_USER=who@example.com
 RHN_PASSWORD=mypassword
+RHN_SUBSCRIPTION_POOL=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 #RHN_ACTIVATION_KEY=yyyyyyyyyyyyyyyyyyyyyyy
 #RHN_ORG=zzzzzzz
-RHN_SUBSCRIPTION_POOL=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-RHN_NAME=docker-image-reposyncer-rhel7
+#RHN_SUBSCRIPTION_POOL=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+RHN_NAME=docker-reposyncer-rhel7
+
+TOPDIR=/repowork
 
 RPM=1
 SRPM=1
 DEBUGINFO=1
+
+BASE_REPOS="
+rhel-7-server-rpms \
+"
 
 REPOS="
 a-mq-clients-1-for-rhel-7-server-rpms \
@@ -18,11 +23,25 @@ jb-eap-6.3-for-rhel-7-server-rpms \
 jb-eap-6.4-for-rhel-7-server-rpms \
 jb-ews-2-for-rhel-7-server-rpms \
 jws-3-for-rhel-7-server-rpms \
+rh-gluster-3-big-data-for-rhel-7-server-rpms \
 rh-gluster-3-client-for-rhel-7-server-rpms \
+rh-gluster-3-console-for-rhel-7-server-rpms \
+rh-gluster-3-for-rhel-7-server-files \
+rh-gluster-3-for-rhel-7-server-rpms \
+rh-gluster-3-nagios-for-rhel-7-server-rpms \
+rh-gluster-3-nfs-for-rhel-7-server-rpms \
+rh-gluster-3-samba-for-rhel-7-server-rpms \
+rh-gluster-3-splunk-for-rhel-7-server-rpms \
 rhel-7-server-extras-rpms \
+rhel-7-server-hts-rpms \
 rhel-7-server-mrg-messaging-3-rpms \
-rhel-7-server-openstack-6.0-rpms \
+rhel-7-server-openstack-5.0-rpms \
 rhel-7-server-openstack-6.0-installer-rpms \
+rhel-7-server-openstack-6.0-rpms \
+rhel-7-server-openstack-7.0-director-rpms \
+rhel-7-server-openstack-7.0-optools-rpms \
+rhel-7-server-openstack-7.0-rpms \
+rhel-7-server-openstack-7.0-tools-rpms \
 rhel-7-server-optional-rpms \
 rhel-7-server-ose-3.0-rpms \
 rhel-7-server-rh-common-rpms \
@@ -40,8 +59,8 @@ rhel-7-server-rhev-mgmt-agent-rpms \
 rhel-7-server-rhevh-rpms \
 rhel-7-server-rhevm-3.6-rpms \
 rhel-7-server-rhn-tools-rpms \
-rhel-7-server-rt-rpms \
 rhel-7-server-rpms \
+rhel-7-server-rt-rpms \
 rhel-7-server-supplementary-rpms \
 rhel-7-server-v2vwin-1-rpms \
 rhel-atomic-host-rpms \
@@ -53,10 +72,4 @@ rhel-x86_64-server-7-mrg-messaging-2-rpms \
 "
 
 EXCLUDE_REPOS="
-a-mq-clients-1-for-rhel-7-server-rpms \
-jb-eap-6-for-rhel-7-server-rpms \
-jb-eap-6.3-for-rhel-7-server-rpms \
-jb-eap-6.4-for-rhel-7-server-rpms \
-jb-ews-2-for-rhel-7-server-rpms \
-jws-3-for-rhel-7-server-rpms \
 "

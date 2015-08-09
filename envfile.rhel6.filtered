@@ -1,15 +1,19 @@
-#!/bin/bash
-
 RHN_USER=who@example.com
 RHN_PASSWORD=mypassword
 #RHN_ACTIVATION_KEY=yyyyyyyyyyyyyyyyyyyyyyy
 #RHN_ORG=zzzzzzz
 RHN_SUBSCRIPTION_POOL=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-RHN_NAME=docker-image-reposyncer-rhel6
+RHN_NAME=docker-reposyncer-rhel6
+
+TOPDIR=/repowork
 
 RPM=1
 SRPM=1
 DEBUGINFO=1
+
+BASE_REPOS="
+rhel-6-server-rpms \
+"
 
 REPOS="
 a-mq-clients-1-for-rhel-6-server-rpms \
@@ -109,11 +113,11 @@ rhel-server-ost-6-3-rpms \
 rhel-server-ost-6-folsom-rpms \
 rhel-server-ost-6-preview-rpms \
 rhel-server-rhscl-6-rpms \
-rhel-sfs-for-rhel-6-server-aus-rpms \
 rhel-sjis-for-rhel-6-server-rpms \
 rhs-2.0-for-rhel-6-server-rpms \
 rhs-2.1-for-rhel-6-server-rpms \
 rhs-3-for-rhel-6-server-rpms \
+rhs-big-data-3-for-rhel-6-server-rpms \
 rhs-nagios-3-for-rhel-6-server-rpms \
 rhsc-2.0-for-rhel-6-server-rpms \
 rhsc-2.1-for-rhel-6-server-rpms \
@@ -121,16 +125,4 @@ rhsc-3-for-rhel-6-server-rpms \
 "
 
 EXCLUDE_REPOS="
-a-mq-clients-1-for-rhel-6-server-rpms \
-cf-me-5.2-for-rhel-6-rpms \
-cf-me-5.3-for-rhel-6-rpms \
-cf-me-5.4-for-rhel-6-rpms \
-jb-eap-5-for-rhel-6-server-rpms \
-jb-eap-6-for-rhel-6-server-rpms \
-jb-eap-6.3-for-rhel-6-server-rpms \
-jb-eap-6.4-for-rhel-6-server-rpms \
-jb-ewp-5-for-rhel-6-server-rpms \
-jb-ews-1-for-rhel-6-server-rpms \
-jb-ews-2-for-rhel-6-server-rpms \
-jws-3-for-rhel-6-server-rpms \
 "
