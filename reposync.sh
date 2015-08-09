@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#reposync=/usr/bin/reposync
+reposync=./myreposync
 #test=echo
 #source ${ENVFILE}
 repotop=/repos
@@ -106,7 +108,7 @@ for suffix in ${suffixes}; do
 	## reposync
 	repo=${_repo%-rpms}-${suffix}
 	echo "=> reposync ${repo}"
-	${test} reposync --repoid ${repo} --download_path ${repotop} --downloadcomps --download-metadata --cachedir ${metatop} --source
+	${test} ${reposync} --repoid ${repo} --download_path ${repotop} --downloadcomps --download-metadata --cachedir ${metatop} --source
 
 	## createrepo
 	repodir=${repotop}/${repo}
