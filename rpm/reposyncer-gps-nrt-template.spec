@@ -1,6 +1,6 @@
 Name:		reposyncer-gps-nrt-__DISTRIBUTION__
 Version:	1
-Release:	1
+Release:	2
 Summary:	Yum repository for internal mirror by reposyncer
 Group:		System Environment/Base 
 License:	GPLv2
