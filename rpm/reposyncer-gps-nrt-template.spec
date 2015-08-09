@@ -1,11 +1,11 @@
-Name:		reposyncer-gps-nrt
+Name:		reposyncer-gps-nrt-__DISTRIBUTION__
 Version:	1
 Release:	1
 Summary:	Yum repository for internal mirror by reposyncer
 Group:		System Environment/Base 
 License:	GPLv2
 URL:		https://github.com/orimanabu/docker-reposyncer
-Source0:	reposyncer-gps-nrt.repo
+Source0:	reposyncer-gps-nrt-__DISTRIBUTION__.repo
 
 BuildArch:	noarch
 Requires:	redhat-release

@@ -10,8 +10,8 @@ for file in envfile.rhel7 envfile.rhel6; do
 	${file} > ${file}.filtered
 done
 
-for file in rpm/reposyncer-gps-nrt.repo; do
-	sed \
-	-e 's,\(baseurl = \).*/\([^/].*\)$,\1http://host.example.com/path/\2,' \
-	${file} > ${file}.filtered
-done
+#for file in rpm/reposyncer-gps-nrt.repo; do
+#	sed \
+#	-e 's,\(baseurl = \).*/\([^/].*\)$,\1http://host.example.com/path/\2,' \
+#	${file} > ${file}.filtered
+#done

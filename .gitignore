@@ -1,4 +1,6 @@
 envfile.rhel6
 envfile.rhel7
 yum.repos.d
-rpm/reposyncer-gps-nrt.repo
+rpm/reposyncer-gps-nrt-rhel6.spec
+rpm/reposyncer-gps-nrt-rhel7.spec
+rpm/*.repo
