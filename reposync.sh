@@ -14,6 +14,7 @@ EXCLUDE_REPOS=$(echo ${EXCLUDE_REPOS} | sed -e 's/,/ /g')
 echo "* MODE: ${MODE}"
 
 echo "=> start date"
+ln -sf /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 date '+%Y%m%d-%H%M%S'
 
 smopts=""
