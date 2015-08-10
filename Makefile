@@ -19,12 +19,10 @@ all:
 	@echo "  deploy  : deploy bootstrap rpms"
 
 build:
-	@echo "=> sudo ./build.sh ${DOCKERFILE} ${IMAGE}"
-	@sudo ./build.sh ${DOCKERFILE} ${IMAGE}
+	./build.sh ${DOCKERFILE} ${IMAGE}
 
 prepare:
-	@echo "=> ./run.sh --image ${IMAGE} --name ${CONTAINER_NAME} --envfile ${ENVFILE} prepare"
-	@./run.sh --image ${IMAGE} --name ${CONTAINER_NAME} --envfile ${ENVFILE} prepare
+	./run.sh --image ${IMAGE} --name ${CONTAINER_NAME} --envfile ${ENVFILE} prepare
 
 envfile:
 	test -f ${ENVFILE} && mv ${ENVFILE} ${ENVFILE}.$(shell date '+%Y%m%d-%H%M%S')
@@ -32,8 +30,7 @@ envfile:
 	chmod 600 ${ENVFILE}
 
 run:
-	@echo "=> ./run.sh --image ${IMAGE} --name ${CONTAINER_NAME} --envfile ${ENVFILE} reposync"
-	@./run.sh --image ${IMAGE} --name ${CONTAINER_NAME} --envfile ${ENVFILE} reposync
+	./run.sh --image ${IMAGE} --name ${CONTAINER_NAME} --envfile ${ENVFILE} reposync
 
 rpm:
 ifndef HOST
