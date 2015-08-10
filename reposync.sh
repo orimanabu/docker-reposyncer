@@ -110,17 +110,19 @@ for _repo in ${REPOS}; do
 		echo "=> reposync ${repo}"
 		${test} ${reposync} --repoid ${repo} --download_path ${repotop} --downloadcomps --download-metadata --cachedir ${metatop} --source
 
+		./aggregate.sh -t ${repotop} ${repo}
+
 		## createrepo
 		repodir=${repotop}/${repo}
 
-		## XXX reposync bug?
-		culprit_srpms=$(find ${repodir} -maxdepth 1 -name '*.rpm')
-		if [ x"$culprit_srpms" != x"" ]; then
-			test -d ${repodir}/Packages || mkdir -p ${repodir}/Packages
-		fi
-		for rpm in ${culprit_srpms}; do
-			${test} mv ${rpm} ${repodir}/Packages/
-		done
+#		## XXX reposync bug?
+#		culprit_srpms=$(find ${repodir} -maxdepth 1 -name '*.rpm')
+#		if [ x"$culprit_srpms" != x"" ]; then
+#			test -d ${repodir}/Packages || mkdir -p ${repodir}/Packages
+#		fi
+#		for rpm in ${culprit_srpms}; do
+#			${test} mv ${rpm} ${repodir}/Packages/
+#		done
 
 		cr_opts=""
 		cr_msg=""

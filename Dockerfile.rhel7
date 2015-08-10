@@ -1,6 +1,7 @@
 FROM registry.access.redhat.com/rhel7
 MAINTAINER Manabu Ori <ori@redhat.com>
 ADD myreposync /myreposync
+ADD aggregate.sh /aggregate.sh
 ADD reposync.sh /reposync.sh
 CMD ["/reposync.sh"]
 
