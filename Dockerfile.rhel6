@@ -1,6 +1,8 @@
 FROM registry.access.redhat.com/rhel6
 MAINTAINER Manabu Ori <ori@redhat.com>
-ADD reposync.sh /root/reposync.sh
-CMD ["/root/reposync.sh"]
+ADD myreposync /myreposync
+ADD aggregate.sh /aggregate.sh
+ADD reposync.sh /reposync.sh
+CMD ["/reposync.sh"]
 
 # vim:et:
