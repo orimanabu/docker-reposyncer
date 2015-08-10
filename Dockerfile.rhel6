@@ -1,6 +1,6 @@
 FROM registry.access.redhat.com/rhel6
 MAINTAINER Manabu Ori <ori@redhat.com>
-ADD myreposync /myreposync
+ADD myreposync.rhel6 /myreposync
 ADD aggregate.sh /aggregate.sh
 ADD reposync.sh /reposync.sh
 CMD ["/reposync.sh"]

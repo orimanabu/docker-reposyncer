@@ -1,0 +1,14 @@
+--- reposync.orig	2015-08-09 23:42:36.862007881 -0400
++++ reposync	2015-08-09 23:42:49.158008176 -0400
+@@ -282,7 +282,10 @@
+             n = n + 1
+             repo = my.repos.getRepo(pkg.repoid)
+             remote = pkg.returnSimple('relativepath')
+-            local = local_repo_path + '/' + remote
++            _remote = remote
++            if remote.find('Packages/') < 0:
++                _remote = 'Packages/' + remote
++            local = local_repo_path + '/' + _remote
+             localdir = os.path.dirname(local)
+             if not os.path.exists(localdir):
+                 os.makedirs(localdir)
