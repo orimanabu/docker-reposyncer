@@ -93,64 +93,64 @@ if [ x"$DEBUG" = x"1" -o x"$DEBUGINFO" = x"1" ]; then
 fi
 
 for _repo in ${REPOS}; do
-skip=0
-for e_repo in ${EXCLUDE_REPOS}; do
-	if [ ${_repo} = ${e_repo} ]; then
-		skip=1
-	fi
-done
-if [ x"$skip" = x"1" ]; then
-	echo "=> reposync ${_repo} :: SKIP"
-	continue
-fi
-
-for suffix in ${suffixes}; do
-	## reposync
-	repo=${_repo%-rpms}-${suffix}
-	echo "=> reposync ${repo}"
-	${test} ${reposync} --repoid ${repo} --download_path ${repotop} --downloadcomps --download-metadata --cachedir ${metatop} --source
-
-	## createrepo
-	repodir=${repotop}/${repo}
-
-	## XXX reposync bug?
-	culprit_srpms=$(find ${repodir} -maxdepth 1 -name '*.rpm')
-	if [ x"$culprit_srpms" != x"" ]; then
-		test -d ${repodir}/Packages || mkdir -p ${repodir}/Packages
-	fi
-	for rpm in ${culprit_srpms}; do
-		${test} mv ${rpm} ${repodir}/Packages/
+	skip=0
+	for e_repo in ${EXCLUDE_REPOS}; do
+		if [ ${_repo} = ${e_repo} ]; then
+			skip=1
+		fi
 	done
-
-	cr_opts=""
-	cr_msg=""
-	if [ -f ${repodir}/comps.xml ]; then
-		cr_opts="${cr_opts} -g ${repodir}/comps.xml"
-		cr_msg="with comps.xml"
-	fi
-	echo "==> createrepo: ${repodir} ${cr_msg}"
-	${test} createrepo -s sha256 --checkts --update ${cr_opts} ${repodir}
-
-	## modifyrepo
-	if [ -f ${repodir}/productid.gz ]; then
-		echo "==> modifyrepo: productid"
-		${test} gzip -dc ${repodir}/productid.gz > ${repodir}/productid
-		${test} modifyrepo ${repodir}/productid ${repodir}/repodata/
-		rm -f ${repodir}/productid
+	if [ x"$skip" = x"1" ]; then
+		echo "=> reposync ${_repo} :: SKIP"
+		continue
 	fi
 
-	ls ${repodir}/*updateinfo.xml.gz > /dev/null 2>&1
-	if [ x"$?" = x"0" ]; then
-		echo "==> modifyrepo: updateinfo"
-		updateinfo_with_checksum=$(ls -1t ${repodir}/*updateinfo.xml.gz | head -n 1)
-		#echo "===> src updateinfo: ${updateinfo_with_checksum}"
-		${test} gzip -dc ${updateinfo_with_checksum} > ${repodir}/updateinfo.xml
-		${test} modifyrepo ${repodir}/updateinfo.xml ${repodir}/repodata/
-		#updateinfo_with_checksum2=$(ls -1t ${repodir}/repodata/*updateinfo.xml.gz | head -n 1)
-		#echo "===> dst updateinfo: ${updateinfo_with_checksum2}"
-		rm -f ${repodir}/updateinfo.xml
-		rm -f ${updateinfo_with_checksum}
-	fi
+	for suffix in ${suffixes}; do
+		## reposync
+		repo=${_repo%-rpms}-${suffix}
+		echo "=> reposync ${repo}"
+		${test} ${reposync} --repoid ${repo} --download_path ${repotop} --downloadcomps --download-metadata --cachedir ${metatop} --source
+
+		## createrepo
+		repodir=${repotop}/${repo}
+
+		## XXX reposync bug?
+		culprit_srpms=$(find ${repodir} -maxdepth 1 -name '*.rpm')
+		if [ x"$culprit_srpms" != x"" ]; then
+			test -d ${repodir}/Packages || mkdir -p ${repodir}/Packages
+		fi
+		for rpm in ${culprit_srpms}; do
+			${test} mv ${rpm} ${repodir}/Packages/
+		done
+
+		cr_opts=""
+		cr_msg=""
+		if [ -f ${repodir}/comps.xml ]; then
+			cr_opts="${cr_opts} -g ${repodir}/comps.xml"
+			cr_msg="with comps.xml"
+		fi
+		echo "==> createrepo: ${repodir} ${cr_msg}"
+		${test} createrepo -s sha256 --checkts --update ${cr_opts} ${repodir}
+
+		## modifyrepo
+		if [ -f ${repodir}/productid.gz ]; then
+			echo "==> modifyrepo: productid"
+			${test} gzip -dc ${repodir}/productid.gz > ${repodir}/productid
+			${test} modifyrepo ${repodir}/productid ${repodir}/repodata/
+			rm -f ${repodir}/productid
+		fi
+
+		ls ${repodir}/*updateinfo.xml.gz > /dev/null 2>&1
+		if [ x"$?" = x"0" ]; then
+			echo "==> modifyrepo: updateinfo"
+			updateinfo_with_checksum=$(ls -1t ${repodir}/*updateinfo.xml.gz | head -n 1)
+			#echo "===> src updateinfo: ${updateinfo_with_checksum}"
+			${test} gzip -dc ${updateinfo_with_checksum} > ${repodir}/updateinfo.xml
+			${test} modifyrepo ${repodir}/updateinfo.xml ${repodir}/repodata/
+			#updateinfo_with_checksum2=$(ls -1t ${repodir}/repodata/*updateinfo.xml.gz | head -n 1)
+			#echo "===> dst updateinfo: ${updateinfo_with_checksum2}"
+			rm -f ${repodir}/updateinfo.xml
+			rm -f ${updateinfo_with_checksum}
+		fi
 	done
 done
 
