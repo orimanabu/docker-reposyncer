@@ -1,0 +1,19 @@
+--- reposync.orig	2015-08-10 11:41:04.526919414 +0900
++++ reposync	2015-08-10 11:41:13.957919640 +0900
+@@ -32,6 +32,7 @@
+ 
+ 
+ 
++import re
+ import os
+ import sys
+ import shutil
+@@ -306,6 +307,8 @@
+         # set localpaths
+         for pkg in download_list:
+             rpmfn = pkg.remote_path
++            if not re.search(r'^Packages\/', rpmfn):
++                rpmfn = 'Packages/' + rpmfn
+             pkg.localpath = os.path.join(local_repo_path, rpmfn)
+             pkg.repo.copy_local = True
+             pkg.repo.cache = 0
