@@ -1,5 +1,7 @@
 #!/bin/bash
 
+export LANG=C
+
 #reposync=/usr/bin/reposync
 reposync=./myreposync
 #test=echo
@@ -10,6 +12,9 @@ metatop=/metadata
 REPOS=$(echo ${REPOS} | sed -e 's/,/ /g')
 EXCLUDE_REPOS=$(echo ${EXCLUDE_REPOS} | sed -e 's/,/ /g')
 echo "* MODE: ${MODE}"
+
+echo "=> start date"
+date '+%Y%m%d-%H%M%S'
 
 smopts=""
 if [ x"$RHN_NAME" != x"" ]; then
@@ -161,3 +166,6 @@ ${test} yum makecache
 
 echo "=> subscription-manager unregister"
 ${test} subscription-manager unregister
+
+echo "=> end date"
+date '+%Y%m%d-%H%M%S'
